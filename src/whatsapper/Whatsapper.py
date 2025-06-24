@@ -65,7 +65,7 @@ class Whatsapper:
                 await self.HandleMessage(message[0], message[1])  
 
             self.PrintDebug('All messages processed. Closing browser...')
-            sleep(4)
+            sleep(6)
             await self.browser.close()
 
     async def HandleMessage(self, contactName:str, message:str):
