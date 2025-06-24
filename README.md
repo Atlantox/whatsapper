@@ -14,7 +14,6 @@ Send automatic messages via WhatsApp Web. The first time you run Whatsapper you 
 # Getting Started
 
 <pre>
-``` 
 python
 from whatsapper import Whatsapper
 
@@ -29,5 +28,4 @@ messages = [
 wsapper = Whatsapper()
 
 await wsapper.SendMessages(messages)
-```
 </pre>
