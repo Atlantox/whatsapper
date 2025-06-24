@@ -1,5 +1,3 @@
-'''
 from .Whatsapper import Whatsapper
 
-#__all__ = ["Whatsapper"]
-'''
+__all__ = ["Whatsapper"]
