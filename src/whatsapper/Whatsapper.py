@@ -46,7 +46,7 @@ class Whatsapper:
             times += 1
             self.PrintDebug('[WAITING]: Waiting for user login')
 
-            if times > 10:
+            if times > 15:
                 popUpsClicked = await self.TryClosePopUps()
                 if popUpsClicked == 0:
                     print('[ADVICE]: Make sure you close all pop-up windows')

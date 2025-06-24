@@ -34,6 +34,6 @@ messages = [
 
 wsapper = Whatsapper()
 asyncio.run(wsapper.SendMessages(messages)) # Open with chromium
-asyncio.run(wsapper.SendMessages(messages), 'firefox') # Open with firefox
-asyncio.run(wsapper.SendMessages(messages), 'edge') # Open with edge
+asyncio.run(wsapper.SendMessages(messages, 'firefox')) # Open with firefox
+asyncio.run(wsapper.SendMessages(messages, 'edge')) # Open with edge
 </pre>
