@@ -10,11 +10,18 @@ Send automatic messages via WhatsApp Web. The first time you run Whatsapper you 
 ## Windows
 `pip install git+https://github.com/Atlantox/whatsapper`
 
+## After intalation, install the browsers
+Whatsapper only uses chromium, firefox and microsoft edge, always using by default chromium
+
+### Install both browsers
+`playwright install chromium firefox msedge`
+
+
 
 # Getting Started
 
 <pre>
-python
+import asyncio
 from whatsapper import Whatsapper
 
 # ('contact name', 'message')
@@ -26,6 +33,7 @@ messages = [
 ]
 
 wsapper = Whatsapper()
-
-await wsapper.SendMessages(messages)
+asyncio.run(wsapper.SendMessages(messages)) # Open with chromium
+asyncio.run(wsapper.SendMessages(messages), 'firefox') # Open with firefox
+asyncio.run(wsapper.SendMessages(messages), 'edge') # Open with edge
 </pre>

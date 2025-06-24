@@ -10,7 +10,7 @@ class Whatsapper:
         self.profile_image_base_url = 'https://media-mia3-1.cdn.whatsapp.net/v/'
         self.lastContact = None
         self.debug = debug
-        self.admittedBrowsers = ['chromium', 'firefox']
+        self.admittedBrowsers = ('chromium', 'firefox', 'edge',)
 
         #self.WhatsAppTextBox = 'p.selectable-text.copyable-text'
         #self.WhatsAppInsideTextBox = 'span.selectable-text.copyable-text'
@@ -22,12 +22,16 @@ class Whatsapper:
         if targetBrowser not in self.admittedBrowsers:
             raise Exception('Invalid browser. Available browsers:', str(self.admittedBrowsers))
         
-        if targetBrowser == 'chromium':
-            myBrowser = playwright.chromium
-        elif targetBrowser == 'firefox':
+        myBrowser = playwright.chromium
+
+        if targetBrowser == 'firefox':
             myBrowser = playwright.firefox
 
-        self.browser = await myBrowser.launch_persistent_context('./user-data', headless=False)
+        if targetBrowser == 'edge':
+            self.browser = await myBrowser.launch_persistent_context('./user-data', headless=False, channel='msedge')
+        else:
+            self.browser = await myBrowser.launch_persistent_context('./user-data', headless=False)
+
         self.page = await self.browser.new_page()
         self.PrintDebug('[INFO]: Opening WhatsApp Web...')
         await self.page.goto(self.url)
@@ -37,8 +41,16 @@ class Whatsapper:
         Wait indefinitely until the users finish the login process in WhatsApp Web
         '''
         loggedIn = False
+        times = 0
         while not loggedIn:
+            times += 1
             self.PrintDebug('[WAITING]: Waiting for user login')
+
+            if times > 10:
+                popUpsClicked = await self.TryClosePopUps()
+                if popUpsClicked == 0:
+                    print('[ADVICE]: Make sure you close all pop-up windows')
+
             sleep(2)
 
             images = await self.page.locator('img').all()
@@ -106,6 +118,23 @@ class Whatsapper:
                 targetContact = contact
         
         return targetContact
+    
+    async def TryClosePopUps(self):
+        '''
+        Try different methods to close pop ups automatically
+        '''
+        clicks = 0
+        maybePopUps = ['Continuar', 'Continue', 'Entendido', 'Ok']
+
+        for popup in maybePopUps:
+            for li in await self.page.get_by_text(popup, exact=True).all():
+                clicks += 1
+                await li.click()
+
+        self.page.keyboard.press('Enter')
+        self.page.keyboard.press('Escape')
+        return clicks
+
     
     def PrintDebug(self, message:str):
         '''

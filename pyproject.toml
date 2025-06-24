@@ -5,7 +5,7 @@ description = "A Python library to send messages via whatsapp web"
 authors = [
     {name = "Atlantox", email = "atlantox7@gmail.com"},
 ]
-dependencies = ["pytest-playwright>=0.7.0"]
+dependencies = ["playwright>=1.52.0"]
 requires-python = ">=3.12"
 readme = "README.md"
 license = {text = "MIT"}
