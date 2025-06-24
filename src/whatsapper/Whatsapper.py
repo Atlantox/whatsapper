@@ -131,8 +131,8 @@ class Whatsapper:
                 clicks += 1
                 await li.click()
 
-        self.page.keyboard.press('Enter')
-        self.page.keyboard.press('Escape')
+        await self.page.keyboard.press('Enter')
+        await self.page.keyboard.press('Escape')
         return clicks
 
     
