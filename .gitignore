@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Personal test files
+src/whatsapper/mytest.py
+user-data/
+
 # C extensions
 *.so
 
