@@ -124,12 +124,10 @@ class Whatsapper:
         Try different methods to close pop ups automatically
         '''
         clicks = 0
-        maybePopUps = ['Continuar', 'Continue', 'Entendido', 'Ok']
 
-        for popup in maybePopUps:
-            for li in await self.page.get_by_text(popup, exact=True).all():
-                clicks += 1
-                await li.click()
+        for popup in await self.page.get_by_role('dialog').all():
+            clicks += 1
+            await popup.click()
 
         await self.page.keyboard.press('Enter')
         await self.page.keyboard.press('Escape')
